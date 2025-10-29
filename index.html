@@ -4,9 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Md Mahbob Alam | Cybersecurity Portfolio</title>
-    <!-- Load Tailwind CSS -->
     <script src="https://cdn.tailwindcss.com"></script>
-    <!-- Load Lucide Icons for aesthetic components -->
     <script src="https://unpkg.com/lucide@latest"></script>
     <style>
         /* Custom styles for the terminal aesthetic */
@@ -27,22 +25,17 @@
             flex-direction: column;
         }
 
-        /* Hero Text Animation */
-        .typing-text {
+        /* * TYPING TEXT STYLES * */
+        .typing-text-container {
             color: var(--primary-color);
-            overflow: hidden; 
             border-right: 0.15em solid var(--primary-color); /* The cursor */
             white-space: nowrap; 
+            overflow: hidden; 
+            display: inline-block;
             margin: 0 auto; 
-            animation:
-                typing 3.5s steps(40, end),
-                blink-caret 0.75s step-end infinite;
-        }
-
-        /* The typing effect */
-        @keyframes typing {
-            from { width: 0 }
-            to { width: 100% }
+            text-align: center;
+            /* Cursor blink animation */
+            animation: blink-caret 0.75s step-end infinite;
         }
 
         /* The typewriter cursor effect */
@@ -51,7 +44,7 @@
             50% { border-color: var(--primary-color); }
         }
 
-        /* Card and Hover Effects */
+        /* Card and Hover Effects (Rest of existing CSS) */
         .cyber-card {
             background-color: #1f2937;
             border: 1px solid #374151;
@@ -96,15 +89,12 @@
             color: var(--secondary-color);
         }
 
-        /* * FIX: Updated Glow List CSS *
-        Using flexbox for proper bullet alignment with wrapped text, 
-        matching the style of the Experience section.
-        */
+        /* * FIX: Updated Glow List CSS * */
         .glow-list li {
-            list-style: none; /* Remove default list style */
-            display: flex; /* Enable flexbox for alignment */
-            align-items: flex-start; /* Align item to the top of the line */
-            margin-bottom: 0.5rem; /* Replaces space-y-2 for individual li elements */
+            list-style: none;
+            display: flex;
+            align-items: flex-start;
+            margin-bottom: 0.5rem;
             margin-top: 0.5rem;
         }
         
@@ -116,14 +106,14 @@
         }
 
         .glow-list li::before {
-            content: "\2023"; /* Changed from bullet point to a triangle/arrow to match Image 3 better */
+            content: "\2023";
             color: var(--primary-color);
             font-weight: bold;
             display: inline-block;
-            margin-right: 0.5rem; /* Space between arrow and text */
+            margin-right: 0.5rem;
             text-shadow: 0 0 5px var(--primary-color);
-            flex-shrink: 0; /* Ensures the arrow doesn't shrink */
-            margin-top: 0.25rem; /* Slight vertical adjust to center with text */
+            flex-shrink: 0;
+            margin-top: 0.25rem;
             font-size: 0.8rem;
         }
 
@@ -131,14 +121,13 @@
         .linked-list li a {
             color: inherit;
             display: block;
-            padding: 0; /* Remove padding here, spacing is handled by li margins */
+            padding: 0;
             transition: all 0.2s;
             border-bottom: 1px solid transparent;
         }
 
         .linked-list li a:hover {
             color: var(--secondary-color);
-            /* Stronger hover effect using box shadow */
             text-shadow: 0 0 4px var(--secondary-color);
             box-shadow: 0 1px 0 0 var(--secondary-color); 
         }
@@ -154,83 +143,90 @@
 </head>
 <body class="antialiased">
 
-    <!-- Header / Navigation (Fixed to the top) -->
     <header class="sticky top-0 z-10 bg-gray-900/90 backdrop-blur-sm p-4 border-b border-green-500/30 shadow-lg">
         <div class="max-w-7xl mx-auto flex justify-between items-center">
             <h1 class="font-mono text-xl font-bold text-green-400">
                 <span class="text-white">&lt;</span>@EmptyMahbob<span class="text-white">/&gt;</span>
             </h1>
-            <nav>
+            
+            <nav class="hidden md:block">
                 <a href="#about" class="text-gray-300 hover:text-green-400 mx-3 transition duration-300">About</a>
                 <a href="#skills" class="text-gray-300 hover:text-green-400 mx-3 transition duration-300">Skills</a>
                 <a href="#experience" class="text-gray-300 hover:text-green-400 mx-3 transition duration-300">Experience</a>
                 <a href="#hof" class="text-gray-300 hover:text-green-400 mx-3 transition duration-300">Hall of Fame</a>
-                <!-- Updated Navigation Links based on new order -->
-                <a href="#certifications" class="text-gray-300 hover:text-green-400 mx-3 transition duration-300 hidden md:inline">Certifications</a>
-                <a href="#community" class="text-gray-300 hover:text-green-400 mx-3 transition duration-300 hidden md:inline">Community</a>
-                <a href="#awards" class="text-gray-300 hover:text-green-400 mx-3 transition duration-300 hidden md:inline">Awards</a>
+                <a href="#certifications" class="text-gray-300 hover:text-green-400 mx-3 transition duration-300">Certifications</a>
+                <a href="#community" class="text-gray-300 hover:text-green-400 mx-3 transition duration-300">Community</a>
+                <a href="#awards" class="text-gray-300 hover:text-green-400 mx-3 transition duration-300">Awards</a>
             </nav>
+
+            <button id="mobile-menu-button" class="md:hidden text-green-400 p-2 rounded-md hover:bg-gray-800 transition duration-300" aria-label="Toggle navigation menu">
+                <i data-lucide="menu" class="w-6 h-6"></i>
+            </button>
         </div>
+
+        <nav id="mobile-menu" class="hidden md:hidden mt-4 space-y-2 pb-2 border-t border-green-500/30 pt-4">
+            <a href="#about" class="block text-gray-300 hover:text-green-400 px-3 py-2 rounded-md transition duration-300">About</a>
+            <a href="#skills" class="block text-gray-300 hover:text-green-400 px-3 py-2 rounded-md transition duration-300">Skills</a>
+            <a href="#experience" class="block text-gray-300 hover:text-green-400 px-3 py-2 rounded-md transition duration-300">Experience</a>
+            <a href="#hof" class="block text-gray-300 hover:text-green-400 px-3 py-2 rounded-md transition duration-300">Hall of Fame</a>
+            <a href="#certifications" class="block text-gray-300 hover:text-green-400 px-3 py-2 rounded-md transition duration-300">Certifications</a>
+            <a href="#community" class="block text-gray-300 hover:text-green-400 px-3 py-2 rounded-md transition duration-300">Community</a>
+            <a href="#awards" class="block text-gray-300 hover:text-green-400 px-3 py-2 rounded-md transition duration-300">Awards</a>
+        </nav>
     </header>
 
     <main class="flex-grow">
-        <!-- Hero Section -->
         <section id="hero" class="py-20 md:py-32 flex items-center justify-center text-center">
             <div class="max-w-4xl px-6">
-                <p class="text-lg md:text-xl text-gray-400 mb-2 font-mono">
+                <p class="text-base md:text-xl text-gray-400 mb-2 font-mono">
                     System.out.println("Welcome");
                 </p>
-                <h2 class="text-5xl md:text-7xl font-extrabold text-white mb-4 leading-tight font-['IBM_Plex_Mono']">
+                <h2 class="text-4xl sm:text-5xl md:text-7xl font-extrabold text-white mb-4 leading-tight font-['IBM_Plex_Mono']">
                     MD MAHBOB ALAM
                 </h2>
-                <div class="h-8 mb-8 flex justify-center">
-                    <h3 class="typing-text text-xl md:text-3xl font-mono text-green-400">
-                        Bug Bounty Hunter & Penetration Tester
+                <div class="h-8 md:h-12 mb-8 flex justify-center">
+                    <h3 id="typing-output" class="typing-text-container text-lg sm:text-xl md:text-3xl font-mono text-green-400">
                     </h3>
                 </div>
 
-                <!-- Social Links -->
-                <div class="mt-8 space-y-4 md:space-y-0 md:space-x-4 flex flex-wrap justify-center">
-                    <a href="https://github.com/emptymahbob" target="_blank" class="inline-flex items-center px-4 py-3 border border-gray-500 text-gray-300 rounded-lg hover:bg-gray-700 hover:text-white transition duration-300">
-                        <i data-lucide="github" class="w-5 h-5 mr-2"></i> GitHub
+                <div class="mt-8 gap-2 flex flex-wrap justify-center"> 
+                    <a href="https://github.com/emptymahbob" target="_blank" class="inline-flex items-center px-3 py-2 border border-gray-500 text-gray-300 rounded-lg hover:bg-gray-700 hover:text-white transition duration-300 text-sm">
+                        <i data-lucide="github" class="w-4 h-4 mr-1"></i> GitHub
                     </a>
-                    <a href="https://www.linkedin.com/in/emptymahbob/" target="_blank" class="inline-flex items-center px-4 py-3 border border-green-500 text-green-500 rounded-lg hover:bg-green-500 hover:text-gray-900 transition duration-300">
-                        <i data-lucide="linkedin" class="w-5 h-5 mr-2"></i> LinkedIn
+                    <a href="https://www.linkedin.com/in/emptymahbob/" target="_blank" class="inline-flex items-center px-3 py-2 border border-green-500 text-green-500 rounded-lg hover:bg-green-500 hover:text-gray-900 transition duration-300 text-sm">
+                        <i data-lucide="linkedin" class="w-4 h-4 mr-1"></i> LinkedIn
                     </a>
-                    <a href="https://hackerone.com/emptymahbob" target="_blank" class="inline-flex items-center px-4 py-3 border border-blue-500 text-blue-500 rounded-lg hover:bg-blue-500 hover:text-gray-900 transition duration-300">
-                        <i data-lucide="bug" class="w-5 h-5 mr-2"></i> HackerOne
+                    <a href="https://hackerone.com/emptymahbob" target="_blank" class="inline-flex items-center px-3 py-2 border border-blue-500 text-blue-500 rounded-lg hover:bg-blue-500 hover:text-gray-900 transition duration-300 text-sm">
+                        <i data-lucide="bug" class="w-4 h-4 mr-1"></i> HackerOne
                     </a>
-                    <a href="https://x.com/emptymahbob" target="_blank" class="inline-flex items-center px-4 py-3 border border-sky-400 text-sky-400 rounded-lg hover:bg-sky-400 hover:text-gray-900 transition duration-300">
-                        <!-- Custom SVG for X/Twitter -->
-                        <svg class="w-5 h-5 mr-2" fill="currentColor" viewBox="0 0 24 24" aria-hidden="true">
+                    <a href="https://x.com/emptymahbob" target="_blank" class="inline-flex items-center px-3 py-2 border border-sky-400 text-sky-400 rounded-lg hover:bg-sky-400 hover:text-gray-900 transition duration-300 text-sm">
+                        <svg class="w-4 h-4 mr-1" fill="currentColor" viewBox="0 0 24 24" aria-hidden="true">
                             <path d="M18.901 1.144h3.68l-8.086 9.243 9.773 13.613h-7.6l-6.52-9.143-6.195 9.143H.397l8.47-11.85-8.527-9.743h7.794l5.447 7.643 6.946-7.643zm-1.127 2.053l-8.74 12.285L3.93 2.053h-.033L1.516 1.144h6.05l6.54 9.11-6.168 7.643 7.846-10.457L21.785 1.144h-2.91zm-7.904 16.963h-1.07l-5.69-7.962L2.738 1.144h.023l7.994 11.233L16.273 1.144h.03l-7.776 10.927L10.963 18.16z"/>
                         </svg>
                         X / Twitter
                     </a>
-                    <a href="https://tryhackme.com/p/emptymahbob" target="_blank" class="inline-flex items-center px-4 py-3 border border-orange-500 text-orange-500 rounded-lg hover:bg-orange-500 hover:text-gray-900 transition duration-300">
-                        <i data-lucide="lock" class="w-5 h-5 mr-2"></i> TryHackMe
+                    <a href="https://tryhackme.com/p/emptymahbob" target="_blank" class="inline-flex items-center px-3 py-2 border border-orange-500 text-orange-500 rounded-lg hover:bg-orange-500 hover:text-gray-900 transition duration-300 text-sm">
+                        <i data-lucide="lock" class="w-4 h-4 mr-1"></i> TryHackMe
                     </a>
                 </div>
 
-                <!-- CV Download Button (The main CTA) -->
-                <button id="downloadCvButton" class="neon-btn mt-12 px-8 py-4 text-lg font-semibold rounded-xl uppercase tracking-wider shadow-xl transition duration-500">
+                <button id="downloadCvButton" class="neon-btn mt-12 px-6 py-3 text-lg font-semibold rounded-xl uppercase tracking-wider shadow-xl transition duration-500">
                     <i data-lucide="download" class="w-5 h-5 inline mr-2"></i> Download Full CV
                 </button>
             </div>
         </section>
 
-        <!-- About Section -->
         <section id="about" class="py-16 px-6">
             <div class="max-w-6xl mx-auto cyber-card rounded-xl p-8 md:p-12">
                 <h2 class="text-3xl font-bold mb-6 border-b-2 border-green-500 pb-2 text-green-400 font-mono">
                     <i data-lucide="terminal" class="w-6 h-6 inline mr-2 icon"></i> About Me
                 </h2>
-                <div class="grid md:grid-cols-2 gap-8 text-lg">
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-8 text-lg">
                     <div>
                         <p class="mb-4">
                             I am a dedicated Cybersecurity Researcher and Penetration Tester based in Dhaka, specializing in finding and exploiting critical vulnerabilities.
                         </p>
-                        <p class="mb-4 text-blue-300 font-semibold">
+                        <p class="mb-4">
                             With over 5 years of experience in bug bounty hunting and nearly 2 years in formal penetration testing, I have successfully identified and reported approximately 500 vulnerabilities across more than 50 diverse companies, organizations, and governmental entities.
                         </p>
                         <p class="mb-4">
@@ -243,7 +239,6 @@
                             <li class="flex items-center"><i data-lucide="phone" class="w-4 h-4 mr-3 icon"></i> +8801813880373</li>
                             <li class="flex items-center"><i data-lucide="map-pin" class="w-4 h-4 mr-3 icon"></i> Dhamrai, Dhaka, Bangladesh</li>
                         </ul>
-                        <!-- Education Section Added -->
                         <div class="mt-6">
                             <h4 class="text-md font-semibold text-blue-400 mb-2 flex items-center"><i data-lucide="book-open" class="w-4 h-4 mr-2"></i> Education:</h4>
                             <ul class="glow-list text-gray-300 space-y-2 text-sm">
@@ -263,14 +258,12 @@
             </div>
         </section>
 
-        <!-- Skills Section -->
         <section id="skills" class="py-16 px-6">
             <div class="max-w-6xl mx-auto">
                 <h2 class="text-3xl font-bold mb-8 text-center text-blue-400 font-mono">
                     <i data-lucide="cpu" class="w-6 h-6 inline mr-2 icon"></i> Core Capabilities
                 </h2>
-                <div class="grid md:grid-cols-3 gap-8">
-                    <!-- Column 1: Areas of Expertise -->
+                <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
                     <div class="cyber-card rounded-xl p-6">
                         <h3 class="text-xl font-bold text-green-400 mb-4 flex items-center"><i data-lucide="shield-check" class="w-5 h-5 mr-2"></i> Areas of Expertise</h3>
                         <ul class="glow-list text-gray-300 space-y-2 text-sm">
@@ -282,11 +275,9 @@
                         </ul>
                     </div>
 
-                    <!-- Column 2: Security Tools -->
                     <div class="cyber-card rounded-xl p-6">
                         <h3 class="text-xl font-bold text-green-400 mb-4 flex items-center"><i data-lucide="wrench" class="w-5 h-5 mr-2"></i> Security Tools</h3>
                         <div class="flex flex-wrap gap-2">
-                            <!-- Show key tools as tags -->
                             <span class="bg-gray-700/50 text-gray-100 text-xs px-2 py-1 rounded-md font-mono">Burp Suite Pro</span>
                             <span class="bg-gray-700/50 text-gray-100 text-xs px-2 py-1 rounded-md font-mono">Metasploit</span>
                             <span class="bg-gray-700/50 text-gray-100 text-xs px-2 py-1 rounded-md font-mono">Nmap</span>
@@ -306,7 +297,6 @@
                         </div>
                     </div>
 
-                    <!-- Column 3: Programming/Scripting -->
                     <div class="cyber-card rounded-xl p-6">
                         <h3 class="text-xl font-bold text-green-400 mb-4 flex items-center"><i data-lucide="code" class="w-5 h-5 mr-2"></i> Languages</h3>
                         <ul class="glow-list text-gray-300 space-y-2 text-sm">
@@ -321,7 +311,6 @@
             </div>
         </section>
 
-        <!-- Experience Section (Unchanged) -->
         <section id="experience" class="py-16 px-6 bg-gray-900/70 border-t border-b border-green-500/20">
             <div class="max-w-6xl mx-auto">
                 <h2 class="text-3xl font-bold mb-8 text-center text-green-400 font-mono">
@@ -329,15 +318,12 @@
                 </h2>
 
                 <div class="space-y-10">
-                    <!-- Experience 1: PentesterSpace -->
                     <div class="cyber-card rounded-xl p-6">
-                        <div class="md:flex justify-between items-center mb-2">
+                        <div class="flex flex-col md:flex-row justify-between items-start md:items-center mb-2">
                             <h3 class="text-2xl font-semibold text-white">Private Penetration Testing</h3>
-                            <p class="text-sm text-gray-400 font-mono">Jan 2024 - Present (Contractual)</p>
+                            <p class="text-sm text-gray-400 font-mono mt-1 md:mt-0">Jan 2024 - Present (Contractual)</p>
                         </div>
                         <p class="text-lg text-blue-400 mb-3">PentesterSpace</p>
-                        <!-- Reference list style: glow-list text-gray-300 space-y-2 text-base -->
-                        <!-- NOTE: This list currently relies on default browser list handling, but the custom lists below now use flexbox for better control. -->
                         <ul class="glow-list text-gray-300 space-y-2 text-base">
                             <li>Conducted project-based penetration tests for local & international companies.</li>
                             <li>Delivered detailed vulnerability reports with impact analysis & remediation steps.</li>
@@ -345,11 +331,10 @@
                         </ul>
                     </div>
 
-                    <!-- Experience 2: Bug Bounty Hunter -->
                     <div class="cyber-card rounded-xl p-6">
-                        <div class="md:flex justify-between items-center mb-2">
+                        <div class="flex flex-col md:flex-row justify-between items-start md:items-center mb-2">
                             <h3 class="text-2xl font-semibold text-white">Security Researcher (Bug Bounty Hunter)</h3>
-                            <p class="text-sm text-gray-400 font-mono">Jan 2020 - Present</p>
+                            <p class="text-sm text-gray-400 font-mono mt-1 md:mt-0">Jan 2020 - Present</p>
                         </div>
                         <p class="text-lg text-blue-400 mb-3">Hackerone</p>
                         <ul class="glow-list text-gray-300 space-y-2 text-base">
@@ -362,7 +347,6 @@
             </div>
         </section>
 
-        <!-- Hall of Fame Section (Unchanged) -->
         <section id="hof" class="py-16 px-6">
             <div class="max-w-6xl mx-auto">
                 <h2 class="text-3xl font-bold mb-8 text-center text-red-400 font-mono">
@@ -372,8 +356,7 @@
                     <p class="text-lg text-gray-300 mb-6 text-center">
                         Acknowledged and rewarded by global organizations for finding and reporting security flaws.
                     </p>
-                    <div class="flex flex-wrap justify-center gap-4 text-sm font-mono text-white">
-                        <!-- Full List of companies from CV -->
+                    <div class="flex flex-wrap justify-center gap-2 md:gap-4 text-sm font-mono text-white">
                         <span class="bg-red-800/50 px-3 py-1 rounded-full shadow-lg">Yahoo</span>
                         <span class="bg-red-800/50 px-3 py-1 rounded-full shadow-lg">Sony</span>
                         <span class="bg-red-800/50 px-3 py-1 rounded-full shadow-lg">Nokia</span>
@@ -419,25 +402,22 @@
             </div>
         </section>
         
-        <!-- NEW POSITION: Certifications Section -->
         <section id="certifications" class="py-16 px-6 bg-gray-900/70 border-t border-b border-green-500/20">
             <div class="max-w-6xl mx-auto">
                 <h2 class="text-3xl font-bold mb-8 text-center text-blue-400 font-mono">
                     <i data-lucide="certificate" class="w-6 h-6 inline mr-2 icon"></i> Professional Certifications
                 </h2>
                 <div class="cyber-card rounded-xl p-8">
-                    <!-- FIX: Using space-y-2 on UL container for consistent spacing, removing it from LI which is handled by custom CSS -->
                     <ul class="glow-list linked-list text-gray-300 space-y-2 text-base">
                         <li><a href="https://coursera.org/share/d65b996920ce76481d05f0d96ae4639c" target="_blank">Google Cybersecurity Professional Certificate</a></li>
                         <li><a href="https://app.kajabi.com/certificates/3ae47979" target="_blank">Certified Cyber Security Analyst (C3SA) - CyberWarFare Labs</a></li>
-                        <li><a href="https://candidate.speedexam.net/certificate.aspx?SSTATE=am4131EniU8ntjp4bO5mXeFakmRNgK3lGeWm1OHN69i/xx9W6E90vyAwmyYEGiY8SBJq/4I6uRLhqWvtK87c11zIHGFTrRXf+KcSjcLGyQM=" target="_blank">Certified AppSec Practitioner v2 (CAP) - The SecOps Group</a></li>
+                        <li><a href="https://candidate.speedexam.net/certificate.aspx?SSTATE=am4131EniU8ntjp4bO5mXeFakmRNgK3lGeWm1OHN69i/xx9W6E90vyAwmyYEGiY8SBJq/4I6uRLhqWvtK87c11zIHGFTrRXf+KcSjcLG3QM=" target="_blank">Certified AppSec Practitioner v2 (CAP) - The SecOps Group</a></li>
                         <li><a href="https://www.credly.com/badges/98bd3dd3-05f1-4d1b-a81d-268e9a5ad047/public_url" target="_blank">Ethical Hacker - Cisco Networking Academy</a></li>
                     </ul>
                 </div>
             </div>
         </section>
         
-        <!-- NEW POSITION: Community Services Section -->
         <section id="community" class="py-16 px-6">
             <div class="max-w-6xl mx-auto">
                 <h2 class="text-3xl font-bold mb-8 text-center text-blue-400 font-mono">
@@ -445,7 +425,6 @@
                 </h2>
                 <div class="cyber-card rounded-xl p-8">
                     <h3 class="text-xl font-bold text-green-400 mb-4">CTF and Hacking Contest Participation:</h3>
-                    <!-- FIX: Using space-y-2 on UL container for consistent spacing, removing it from LI which is handled by custom CSS -->
                     <ul class="glow-list linked-list text-gray-300 space-y-2 text-base">
                         <li><a href="https://diucybercon.com/" target="_blank">Finalist DIU CYBERCON CTF 2025 | On-site National Cybersecurity Conference and CTF Competition.</a></li>
                         <li><a href="https://bughunt.info/" target="_blank">Finalist HackerOne Bug Hunt 2023 | On-site Hacking Contest & Security Conference.</a></li>
@@ -459,14 +438,12 @@
             </div>
         </section>
 
-        <!-- AWARDS ONLY Section -->
         <section id="awards" class="py-16 px-6 bg-gray-900/70 border-t border-b border-green-500/20">
             <div class="max-w-6xl mx-auto">
                 <h2 class="text-3xl font-bold mb-8 text-center text-red-400 font-mono">
                     <i data-lucide="medal" class="w-6 h-6 inline mr-2 icon" style="color: #f87171;"></i> Awards & Recognitions
                 </h2>
                 <div class="cyber-card rounded-xl p-8">
-                    <!-- FIX: Using space-y-2 on UL container for consistent spacing, removing it from LI which is handled by custom CSS -->
                     <ul class="glow-list linked-list text-gray-300 space-y-2 text-base">
                         <li><a href="https://www.linkedin.com/posts/emptymahbob_bugbounty-activity-7174693847459921920-ivJf/" target="_blank">NCSC-UK GOV Challenge Coin (2023) - National Cyber Security Centre, UK Government</a></li>
                         <li><a href="https://www.linkedin.com/posts/emptymahbob_i-responsibly-hacked-and-secured-the-uk-government-activity-7147139876184801280-i8ST/" target="_blank">Bugcrowd HackerCup Challenge Coin (2023) - Bugcrowd</a></li>
@@ -477,7 +454,6 @@
 
     </main>
 
-    <!-- Footer -->
     <footer class="mt-12 p-6 text-center text-sm text-gray-500 border-t border-green-500/20">
         <p class="font-mono">
             &copy; <span id="currentYear"></span> Md Mahbob Alam | @emptymahbob | All rigths reserved.
@@ -491,25 +467,33 @@
         // Dynamically set the current year in the footer
         document.getElementById('currentYear').textContent = new Date().getFullYear();
 
+        // Mobile Menu Toggle Logic
+        const mobileMenuButton = document.getElementById('mobile-menu-button');
+        const mobileMenu = document.getElementById('mobile-menu');
+
+        mobileMenuButton.addEventListener('click', () => {
+            mobileMenu.classList.toggle('hidden');
+        });
+
+        // Hide mobile menu after clicking a link
+        document.querySelectorAll('#mobile-menu a').forEach(link => {
+            link.addEventListener('click', () => {
+                mobileMenu.classList.add('hidden');
+            });
+        });
+
         // CV Download Logic
         const cvFileName = "Md Mahbob Alam CV.pdf";
 
         document.getElementById('downloadCvButton').addEventListener('click', () => {
-            // Check if the file is available (it is available in the canvas environment)
-            const filePath = cvFileName;
-
-            // Since we cannot trigger a direct file download link easily in this environment,
-            // we will create a simulated link click for the provided file name.
-            // In a real-world scenario, the path would be the actual file URL on the server.
+            const filePath = cvFileName; 
 
             const link = document.createElement('a');
-            link.href = filePath; // This assumes the CV is placed in the same directory on GitHub
+            link.href = filePath; 
             link.download = cvFileName;
             document.body.appendChild(link);
             link.click();
             document.body.removeChild(link);
-
-            // Optional: Show a subtle confirmation message
             console.log("Download started for: " + cvFileName);
         });
 
@@ -522,6 +506,58 @@
                 });
             });
         });
+
+        // * NEW JAVASCRIPT FOR ALTERNATING TYPING EFFECT *
+        const TxtType = function(el, toRotate, period) {
+            this.toRotate = toRotate;
+            this.el = el;
+            this.loopNum = 0;
+            this.period = parseInt(period, 10) || 2000;
+            this.txt = '';
+            this.isDeleting = false;
+            this.tick();
+        };
+
+        TxtType.prototype.tick = function() {
+            const i = this.loopNum % this.toRotate.length;
+            const fullTxt = this.toRotate[i];
+
+            if (this.isDeleting) {
+                this.txt = fullTxt.substring(0, this.txt.length - 1);
+            } else {
+                this.txt = fullTxt.substring(0, this.txt.length + 1);
+            }
+
+            this.el.innerHTML = this.txt;
+
+            let delta = 200 - Math.random() * 100;
+
+            if (this.isDeleting) { delta /= 2; }
+
+            if (!this.isDeleting && this.txt === fullTxt) {
+                delta = this.period;
+                this.isDeleting = true;
+            } else if (this.isDeleting && this.txt === '') {
+                this.isDeleting = false;
+                this.loopNum++;
+                delta = 500;
+            }
+
+            setTimeout(function() {
+                this.tick();
+            }.bind(this), delta);
+        };
+
+        window.onload = function() {
+            const elements = document.getElementById('typing-output');
+            
+            // The two phrases to alternate
+            const toRotate = [ 'Bug Bounty Hunter', 'Penetration Tester', 'Cybersecurity Enthusiast' ];
+            const period = 2000; // Time to wait at the end of a phrase
+
+            new TxtType(elements, toRotate, period);
+        };
+        // * END NEW JAVASCRIPT *
     </script>
 </body>
 </html>
