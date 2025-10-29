@@ -10,7 +10,6 @@
     <script src="https://unpkg.com/lucide@latest"></script>
     <style>
         /* Custom styles for the terminal aesthetic */
-        /* Changed font from Major Mono Display to IBM Plex Mono for better readability while keeping the aesthetic */
         @import url('https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;700&family=Inter:wght@100..900&display=swap');
         :root {
             --primary-color: #00ff00; /* Neon Green */
@@ -31,10 +30,10 @@
         /* Hero Text Animation */
         .typing-text {
             color: var(--primary-color);
-            overflow: hidden; /* Ensures the content is not revealed until the animation */
+            overflow: hidden; 
             border-right: 0.15em solid var(--primary-color); /* The cursor */
-            white-space: nowrap; /* Keeps the content on a single line */
-            margin: 0 auto; /* Gives that typewriter effect */
+            white-space: nowrap; 
+            margin: 0 auto; 
             animation:
                 typing 3.5s steps(40, end),
                 blink-caret 0.75s step-end infinite;
@@ -97,33 +96,58 @@
             color: var(--secondary-color);
         }
 
-        /* For the glowing list items */
+        /* *** FIX: Updated Glow List CSS ***
+        Using flexbox for proper bullet alignment with wrapped text, 
+        matching the style of the Experience section.
+        */
         .glow-list li {
-            position: relative;
-            padding-left: 1.5rem; /* Space for the pseudo-element */
+            list-style: none; /* Remove default list style */
+            display: flex; /* Enable flexbox for alignment */
+            align-items: flex-start; /* Align item to the top of the line */
+            margin-bottom: 0.5rem; /* Replaces space-y-2 for individual li elements */
+            margin-top: 0.5rem;
         }
+        
+        .glow-list li:first-child {
+            margin-top: 0;
+        }
+        .glow-list li:last-child {
+            margin-bottom: 0;
+        }
+
         .glow-list li::before {
-            content: "\2023"; /* A simple bullet point */
+            content: "\2023"; /* Changed from bullet point to a triangle/arrow to match Image 3 better */
             color: var(--primary-color);
             font-weight: bold;
             display: inline-block;
-            width: 1em;
-            margin-left: -1em;
-            text-shadow: 0 0 8px var(--primary-color);
+            margin-right: 0.5rem; /* Space between arrow and text */
+            text-shadow: 0 0 5px var(--primary-color);
+            flex-shrink: 0; /* Ensures the arrow doesn't shrink */
+            margin-top: 0.25rem; /* Slight vertical adjust to center with text */
+            font-size: 0.8rem;
         }
-                /* Style for linked list items */
+
+        /* Style for linked list items */
         .linked-list li a {
             color: inherit;
             display: block;
-            padding: 4px 0;
+            padding: 0; /* Remove padding here, spacing is handled by li margins */
             transition: all 0.2s;
-            border-bottom: 1px dashed transparent;
+            border-bottom: 1px solid transparent;
         }
 
         .linked-list li a:hover {
             color: var(--secondary-color);
-            text-shadow: 0 0 5px var(--secondary-color);
-            border-bottom: 1px dashed var(--secondary-color);
+            /* Stronger hover effect using box shadow */
+            text-shadow: 0 0 4px var(--secondary-color);
+            box-shadow: 0 1px 0 0 var(--secondary-color); 
+        }
+
+        /* Remove default list margins that conflict with flex/custom margins */
+        .space-y-2 {
+            --tw-space-y-reverse: 0;
+            margin: 0;
+            padding: 0;
         }
 
     </style>
@@ -141,7 +165,8 @@
                 <a href="#skills" class="text-gray-300 hover:text-green-400 mx-3 transition duration-300">Skills</a>
                 <a href="#experience" class="text-gray-300 hover:text-green-400 mx-3 transition duration-300">Experience</a>
                 <a href="#hof" class="text-gray-300 hover:text-green-400 mx-3 transition duration-300">Hall of Fame</a>
-                <!-- Added new navigation links -->
+                <!-- Updated Navigation Links based on new order -->
+                <a href="#certifications" class="text-gray-300 hover:text-green-400 mx-3 transition duration-300 hidden md:inline">Certifications</a>
                 <a href="#community" class="text-gray-300 hover:text-green-400 mx-3 transition duration-300 hidden md:inline">Community</a>
                 <a href="#awards" class="text-gray-300 hover:text-green-400 mx-3 transition duration-300 hidden md:inline">Awards</a>
             </nav>
@@ -164,7 +189,7 @@
                     </h3>
                 </div>
 
-                <!-- UPDATED: Added GitHub, X/Twitter, and TryHackMe links -->
+                <!-- Social Links -->
                 <div class="mt-8 space-y-4 md:space-y-0 md:space-x-4 flex flex-wrap justify-center">
                     <a href="https://github.com/emptymahbob" target="_blank" class="inline-flex items-center px-4 py-3 border border-gray-500 text-gray-300 rounded-lg hover:bg-gray-700 hover:text-white transition duration-300">
                         <i data-lucide="github" class="w-5 h-5 mr-2"></i> GitHub
@@ -176,7 +201,7 @@
                         <i data-lucide="bug" class="w-5 h-5 mr-2"></i> HackerOne
                     </a>
                     <a href="https://x.com/emptymahbob" target="_blank" class="inline-flex items-center px-4 py-3 border border-sky-400 text-sky-400 rounded-lg hover:bg-sky-400 hover:text-gray-900 transition duration-300">
-                        <!-- Custom SVG for X/Twitter since lucide doesn't have it explicitly -->
+                        <!-- Custom SVG for X/Twitter -->
                         <svg class="w-5 h-5 mr-2" fill="currentColor" viewBox="0 0 24 24" aria-hidden="true">
                             <path d="M18.901 1.144h3.68l-8.086 9.243 9.773 13.613h-7.6l-6.52-9.143-6.195 9.143H.397l8.47-11.85-8.527-9.743h7.794l5.447 7.643 6.946-7.643zm-1.127 2.053l-8.74 12.285L3.93 2.053h-.033L1.516 1.144h6.05l6.54 9.11-6.168 7.643 7.846-10.457L21.785 1.144h-2.91zm-7.904 16.963h-1.07l-5.69-7.962L2.738 1.144h.023l7.994 11.233L16.273 1.144h.03l-7.776 10.927L10.963 18.16z"/>
                         </svg>
@@ -203,13 +228,13 @@
                 <div class="grid md:grid-cols-2 gap-8 text-lg">
                     <div>
                         <p class="mb-4">
-                            I am a dedicated Cybersecurity Researcher and Penetration Tester based in Dhaka, specializing in finding and exploiting critical vulnerabilities.
+                            I am a dedicated **Cybersecurity Researcher and Penetration Tester** based in Dhaka, specializing in finding and exploiting critical vulnerabilities.
+                        </p>
+                        <p class="mb-4 text-blue-300 font-semibold">
+                            With over **5 years of experience** in bug bounty hunting and nearly **2 years in formal penetration testing**, I have successfully identified and reported approximately **500 vulnerabilities** across more than **50 diverse companies**, organizations, and governmental entities.
                         </p>
                         <p class="mb-4">
-                            With over 5 years of experience in bug bounty hunting and nearly 2 years in formal penetration testing, I have successfully identified and reported approximately 500 vulnerabilities across more than 50 diverse companies, organizations, and governmental entities.
-                        </p>
-                        <p class="mb-4">
-                            My expertise covers full-stack vulnerability research (IDOR, XSS, RCE, LFI, etc.), and I am proficient with key industry tools like Burp Suite Pro, Metasploit, Nmap, and more.
+                            My expertise covers full-stack vulnerability research (**IDOR, XSS, RCE, LFI**, etc.), and I am proficient with key industry tools like Burp Suite Pro, Metasploit, Nmap, and more.
                         </p>
                     </div>
                     <div>
@@ -311,6 +336,8 @@
                             <p class="text-sm text-gray-400 font-mono">Jan 2024 - Present (Contractual)</p>
                         </div>
                         <p class="text-lg text-blue-400 mb-3">PentesterSpace</p>
+                        <!-- Reference list style: glow-list text-gray-300 space-y-2 text-base -->
+                        <!-- NOTE: This list currently relies on default browser list handling, but the custom lists below now use flexbox for better control. -->
                         <ul class="glow-list text-gray-300 space-y-2 text-base">
                             <li>Conducted project-based penetration tests for local & international companies.</li>
                             <li>Delivered detailed vulnerability reports with impact analysis & remediation steps.</li>
@@ -335,7 +362,7 @@
             </div>
         </section>
 
-        <!-- Hall of Fame Section (Updated with full list) -->
+        <!-- Hall of Fame Section (Unchanged) -->
         <section id="hof" class="py-16 px-6">
             <div class="max-w-6xl mx-auto">
                 <h2 class="text-3xl font-bold mb-8 text-center text-red-400 font-mono">
@@ -391,15 +418,34 @@
                 </div>
             </div>
         </section>
-
-        <!-- Community Services Section -->
-        <section id="community" class="py-16 px-6 bg-gray-900/70 border-t border-b border-green-500/20">
+        
+        <!-- NEW POSITION: Certifications Section -->
+        <section id="certifications" class="py-16 px-6 bg-gray-900/70 border-t border-b border-green-500/20">
+            <div class="max-w-6xl mx-auto">
+                <h2 class="text-3xl font-bold mb-8 text-center text-blue-400 font-mono">
+                    <i data-lucide="certificate" class="w-6 h-6 inline mr-2 icon"></i> Professional Certifications
+                </h2>
+                <div class="cyber-card rounded-xl p-8">
+                    <!-- FIX: Using space-y-2 on UL container for consistent spacing, removing it from LI which is handled by custom CSS -->
+                    <ul class="glow-list linked-list text-gray-300 space-y-2 text-base">
+                        <li><a href="https://coursera.org/share/d65b996920ce76481d05f0d96ae4639c" target="_blank">Google Cybersecurity Professional Certificate</a></li>
+                        <li><a href="https://app.kajabi.com/certificates/3ae47979" target="_blank">Certified Cyber Security Analyst (C3SA) - CyberWarFare Labs</a></li>
+                        <li><a href="https://candidate.speedexam.net/certificate.aspx?SSTATE=am4131EniU8ntjp4bO5mXeFakmRNgK3lGeWm1OHN69i/xx9W6E90vyAwmyYEGiY8SBJq/4I6uRLhqWvtK87c11zIHGFTrRXf+KcSjcLGyQM=" target="_blank">Certified AppSec Practitioner v2 (CAP) - The SecOps Group</a></li>
+                        <li><a href="https://www.credly.com/badges/98bd3dd3-05f1-4d1b-a81d-268e9a5ad047/public_url" target="_blank">Ethical Hacker - Cisco Networking Academy</a></li>
+                    </ul>
+                </div>
+            </div>
+        </section>
+        
+        <!-- NEW POSITION: Community Services Section -->
+        <section id="community" class="py-16 px-6">
             <div class="max-w-6xl mx-auto">
                 <h2 class="text-3xl font-bold mb-8 text-center text-blue-400 font-mono">
                     <i data-lucide="users" class="w-6 h-6 inline mr-2 icon"></i> Community & Participation
                 </h2>
                 <div class="cyber-card rounded-xl p-8">
                     <h3 class="text-xl font-bold text-green-400 mb-4">CTF and Hacking Contest Participation:</h3>
+                    <!-- FIX: Using space-y-2 on UL container for consistent spacing, removing it from LI which is handled by custom CSS -->
                     <ul class="glow-list linked-list text-gray-300 space-y-2 text-base">
                         <li><a href="https://diucybercon.com/" target="_blank">Finalist DIU CYBERCON CTF 2025 | On-site National Cybersecurity Conference and CTF Competition.</a></li>
                         <li><a href="https://bughunt.info/" target="_blank">Finalist HackerOne Bug Hunt 2023 | On-site Hacking Contest & Security Conference.</a></li>
@@ -413,31 +459,18 @@
             </div>
         </section>
 
-        <!-- Awards and Certifications Section (SEPARATED) -->
-        <section id="awards-certifications" class="py-16 px-6">
+        <!-- AWARDS ONLY Section -->
+        <section id="awards" class="py-16 px-6 bg-gray-900/70 border-t border-b border-green-500/20">
             <div class="max-w-6xl mx-auto">
-                <h2 class="text-3xl font-bold mb-8 text-center text-green-400 font-mono">
-                    <i data-lucide="trophy" class="w-6 h-6 inline mr-2 icon"></i> Awards & Credentials
+                <h2 class="text-3xl font-bold mb-8 text-center text-red-400 font-mono">
+                    <i data-lucide="medal" class="w-6 h-6 inline mr-2 icon" style="color: #f87171;"></i> Awards & Recognitions
                 </h2>
-                <div class="grid md:grid-cols-2 gap-8">
-                    <!-- Awards Col -->
-                    <div class="cyber-card rounded-xl p-6">
-                        <h3 class="text-xl font-bold text-red-400 mb-4 flex items-center"><i data-lucide="medal" class="w-5 h-5 mr-2"></i> Awards & Recognitions</h3>
-                        <ul class="glow-list linked-list text-gray-300 space-y-2 text-base">
-                            <li><a href="https://www.linkedin.com/posts/emptymahbob_bugbounty-activity-7174693847459921920-ivJf/" target="_blank">NCSC-UK GOV Challenge Coin (2023)</a></li>
-                            <li><a href="https://www.linkedin.com/posts/emptymahbob_i-responsibly-hacked-and-secured-the-uk-government-activity-7147139876184801280-i8ST/" target="_blank">Bugcrowd HackerCup Challenge Coin (2023)</a></li>
-                        </ul>
-                    </div>
-                    <!-- Certifications Col -->
-                    <div class="cyber-card rounded-xl p-6">
-                        <h3 class="text-xl font-bold text-red-400 mb-4 flex items-center"><i data-lucide="certificate" class="w-5 h-5 mr-2"></i> Professional Certifications</h3>
-                        <ul class="glow-list linked-list text-gray-300 space-y-2 text-base">
-                            <li><a href="https://coursera.org/share/d65b996920ce76481d05f0d96ae4639c" target="_blank">Google Cybersecurity Professional Certificate</a></li>
-                            <li><a href="https://app.kajabi.com/certificates/3ae47979" target="_blank">Certified Cyber Security Analyst (C3SA)</a></li>
-                            <li><a href="https://candidate.speedexam.net/certificate.aspx?SSTATE=am4131EniU8ntjp4bO5mXeFakmRNgK3lGeWm1OHN69i/xx9W6E90vyAwmyYEGiY8SBJq/4I6uRLhqWvtK87c11zIHGFTrRXf+KcSjcLGyQM=" target="_blank">Certified AppSec Practitioner v2 (CAP)</a></li>
-                            <li><a href="https://www.credly.com/badges/98bd3dd3-05f1-4d1b-a81d-268e9a5ad047/public_url" target="_blank">Ethical Hacker - Cisco Networking Academy</a></li>
-                        </ul>
-                    </div>
+                <div class="cyber-card rounded-xl p-8">
+                    <!-- FIX: Using space-y-2 on UL container for consistent spacing, removing it from LI which is handled by custom CSS -->
+                    <ul class="glow-list linked-list text-gray-300 space-y-2 text-base">
+                        <li><a href="https://www.linkedin.com/posts/emptymahbob_bugbounty-activity-7174693847459921920-ivJf/" target="_blank">**NCSC-UK GOV Challenge Coin** (2023) - National Cyber Security Centre, UK Government</a></li>
+                        <li><a href="https://www.linkedin.com/posts/emptymahbob_i-responsibly-hacked-and-secured-the-uk-government-activity-7147139876184801280-i8ST/" target="_blank">**Bugcrowd HackerCup Challenge Coin** (2023) - Bugcrowd</a></li>
+                    </ul>
                 </div>
             </div>
         </section>
