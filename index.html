@@ -111,6 +111,20 @@
             margin-left: -1em;
             text-shadow: 0 0 8px var(--primary-color);
         }
+                /* Style for linked list items */
+        .linked-list li a {
+            color: inherit;
+            display: block;
+            padding: 4px 0;
+            transition: all 0.2s;
+            border-bottom: 1px dashed transparent;
+        }
+
+        .linked-list li a:hover {
+            color: var(--secondary-color);
+            text-shadow: 0 0 5px var(--secondary-color);
+            border-bottom: 1px dashed var(--secondary-color);
+        }
 
     </style>
 </head>
@@ -378,7 +392,7 @@
             </div>
         </section>
 
-        <!-- Community Services Section (NEW) -->
+        <!-- Community Services Section -->
         <section id="community" class="py-16 px-6 bg-gray-900/70 border-t border-b border-green-500/20">
             <div class="max-w-6xl mx-auto">
                 <h2 class="text-3xl font-bold mb-8 text-center text-blue-400 font-mono">
@@ -386,42 +400,42 @@
                 </h2>
                 <div class="cyber-card rounded-xl p-8">
                     <h3 class="text-xl font-bold text-green-400 mb-4">CTF and Hacking Contest Participation:</h3>
-                    <ul class="glow-list text-gray-300 space-y-2 text-base">
-                        <li>Finalist DIU CYBERCON CTF 2025 | On-site National Cybersecurity Conference and CTF Competition.</li>
-                        <li>Finalist HackerOne Bug Hunt 2023 | On-site Hacking Contest & Security Conference.</li>
-                        <li>Finalist BUET CSE Fest 2023 | On-site CTF Contest & Conference.</li>
-                        <li>Finalist Take-Off programming contest | On-site Programming Contest & Conference.</li>
-                        <li>Participant in Bugcrowd Hacker Cup 2023.</li>
-                        <li>Participant in BDSec CTF 2025.</li>
-                        <li>Participant in HackerOne Ambassador World Cup 2023.</li>
+                    <ul class="glow-list linked-list text-gray-300 space-y-2 text-base">
+                        <li><a href="https://diucybercon.com/" target="_blank">Finalist DIU CYBERCON CTF 2025 | On-site National Cybersecurity Conference and CTF Competition.</a></li>
+                        <li><a href="https://bughunt.info/" target="_blank">Finalist HackerOne Bug Hunt 2023 | On-site Hacking Contest & Security Conference.</a></li>
+                        <li><a href="https://buet-cse-fest-2023-main-mauve.vercel.app/ctf" target="_blank">Finalist BUET CSE Fest 2023 | On-site CTF Contest & Conference.</a></li>
+                        <li><a href="https://toph.co/c/diu-take-off-fall-2022-final" target="_blank">Finalist Take-Off programming contest | On-site Programming Contest & Conference.</a></li>
+                        <li><a href="https://www.bugcrowd.com/blog/hacker-cup-2023-recap-big-payouts-hacker-collaboration-and-awesome-swag/" target="_blank">Participant in Bugcrowd Hacker Cup 2023.</a></li>
+                        <li><a href="https://bdsec-ctf.com/#:~:text=with%20BDSec%20CTF.-,BDSec%20CTF%202025,-Get%20ready%20for" target="_blank">Participant in BDSec CTF 2025.</a></li>
+                        <li><a href="https://hackerone.com/emptymahbob/badges?type=user#:~:text=1%20total%20awards-,Ambassador%20World%20Cup%202023%20Participant,March%2014%2C%202023,-Participated%20in%20the" target="_blank">Participant in HackerOne Ambassador World Cup 2023.</a></li>
                     </ul>
                 </div>
             </div>
         </section>
 
-        <!-- Awards and Achievements Section (NEW) -->
-        <section id="awards" class="py-16 px-6">
+        <!-- Awards and Certifications Section (SEPARATED) -->
+        <section id="awards-certifications" class="py-16 px-6">
             <div class="max-w-6xl mx-auto">
                 <h2 class="text-3xl font-bold mb-8 text-center text-green-400 font-mono">
-                    <i data-lucide="trophy" class="w-6 h-6 inline mr-2 icon"></i> Awards and Certifications
+                    <i data-lucide="trophy" class="w-6 h-6 inline mr-2 icon"></i> Awards & Credentials
                 </h2>
                 <div class="grid md:grid-cols-2 gap-8">
                     <!-- Awards Col -->
                     <div class="cyber-card rounded-xl p-6">
-                        <h3 class="text-xl font-bold text-red-400 mb-4 flex items-center"><i data-lucide="medal" class="w-5 h-5 mr-2"></i>Awards & Recognitions</h3>
-                        <ul class="glow-list text-gray-300 space-y-2 text-base">
-                            <li>NCSC-UK GOV Challenge Coin (2023)</li>
-                            <li>Bugcrowd Hackercup Challenge Coin (2023)</li>
+                        <h3 class="text-xl font-bold text-red-400 mb-4 flex items-center"><i data-lucide="medal" class="w-5 h-5 mr-2"></i> Awards & Recognitions</h3>
+                        <ul class="glow-list linked-list text-gray-300 space-y-2 text-base">
+                            <li><a href="https://www.linkedin.com/posts/emptymahbob_bugbounty-activity-7174693847459921920-ivJf/" target="_blank">NCSC-UK GOV Challenge Coin (2023)</a></li>
+                            <li><a href="https://www.linkedin.com/posts/emptymahbob_i-responsibly-hacked-and-secured-the-uk-government-activity-7147139876184801280-i8ST/" target="_blank">Bugcrowd HackerCup Challenge Coin (2023)</a></li>
                         </ul>
                     </div>
-                    <!-- Certifications Col (Existing content but organized) -->
+                    <!-- Certifications Col -->
                     <div class="cyber-card rounded-xl p-6">
-                        <h3 class="text-xl font-bold text-red-400 mb-4 flex items-center"><i data-lucide="certificate" class="w-5 h-5 mr-2"></i>Professional Certifications</h3>
-                        <ul class="glow-list text-gray-300 space-y-2 text-base">
-                            <li>Google Cybersecurity Professional Certificate</li>
-                            <li>Certified Cyber Security Analyst (C3SA)</li>
-                            <li>Certified AppSec Practitioner v2 (CAP)</li>
-                            <li>Ethical Hacker - Cisco Networking Academy</li>
+                        <h3 class="text-xl font-bold text-red-400 mb-4 flex items-center"><i data-lucide="certificate" class="w-5 h-5 mr-2"></i> Professional Certifications</h3>
+                        <ul class="glow-list linked-list text-gray-300 space-y-2 text-base">
+                            <li><a href="https://coursera.org/share/d65b996920ce76481d05f0d96ae4639c" target="_blank">Google Cybersecurity Professional Certificate</a></li>
+                            <li><a href="https://app.kajabi.com/certificates/3ae47979" target="_blank">Certified Cyber Security Analyst (C3SA)</a></li>
+                            <li><a href="https://candidate.speedexam.net/certificate.aspx?SSTATE=am4131EniU8ntjp4bO5mXeFakmRNgK3lGeWm1OHN69i/xx9W6E90vyAwmyYEGiY8SBJq/4I6uRLhqWvtK87c11zIHGFTrRXf+KcSjcLGyQM=" target="_blank">Certified AppSec Practitioner v2 (CAP)</a></li>
+                            <li><a href="https://www.credly.com/badges/98bd3dd3-05f1-4d1b-a81d-268e9a5ad047/public_url" target="_blank">Ethical Hacker - Cisco Networking Academy</a></li>
                         </ul>
                     </div>
                 </div>
