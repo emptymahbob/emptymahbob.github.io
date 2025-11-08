@@ -1,0 +1,368 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>KnightShop CTF Writeup | Md Mahbob Alam</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://unpkg.com/lucide@latest"></script>
+    <style>
+        /* Custom styles for the terminal aesthetic (Copied from index.html) */
+        @import url('https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;700&family=Inter:wght@100..900&display=swap');
+
+        :root {
+            --primary-color: #00ff00;
+            /* Neon Green */
+            --secondary-color: #00aaff;
+            /* Neon Blue */
+            --bg-dark: #111827;
+            /* Dark Slate */
+            --text-light: #f3f4f6;
+        }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: var(--bg-dark);
+            color: var(--text-light);
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+        }
+
+        /* Card and Hover Effects (Copied for consistency) */
+        .cyber-card {
+            background-color: #1f2937;
+            border: 1px solid #374151;
+            box-shadow: 0 0 10px rgba(0, 255, 0, 0.1);
+            transition: all 0.3s ease-in-out;
+        }
+
+        /* Scrollbar styling for a darker theme */
+        ::-webkit-scrollbar {
+            width: 8px;
+        }
+
+        ::-webkit-scrollbar-thumb {
+            background-color: #059669;
+            /* Darker green */
+            border-radius: 4px;
+        }
+
+        ::-webkit-scrollbar-track {
+            background-color: #1f2937;
+        }
+
+        /* Icon styling */
+        .icon {
+            color: var(--secondary-color);
+        }
+
+        /* Blog Post Specific Styles */
+        .blog-content h2 {
+            font-size: 1.875rem;
+            /* 3xl */
+            font-weight: 700;
+            margin-top: 2rem;
+            margin-bottom: 1rem;
+            color: var(--primary-color);
+            border-bottom: 2px solid rgba(0, 255, 0, 0.3);
+            padding-bottom: 0.5rem;
+            font-family: 'IBM Plex Mono', monospace;
+        }
+
+        .blog-content h3 {
+            font-size: 1.5rem;
+            /* 2xl */
+            font-weight: 600;
+            margin-top: 1.5rem;
+            margin-bottom: 0.75rem;
+            color: var(--secondary-color);
+        }
+
+        .blog-content p,
+        .blog-content li {
+            margin-bottom: 1rem;
+            line-height: 1.75;
+            color: #d1d5db;
+            /* gray-300 */
+        }
+
+        .blog-content pre {
+            background-color: #1a202c;
+            /* darker than cyber-card */
+            color: var(--primary-color);
+            padding: 1rem;
+            border-radius: 0.5rem;
+            overflow-x: auto;
+            font-family: 'IBM Plex Mono', monospace;
+            border: 1px solid var(--primary-color);
+            box-shadow: 0 0 8px rgba(0, 255, 0, 0.2);
+        }
+
+        .blog-content .code-comment {
+            color: #9ca3af;
+            /* gray-400 */
+        }
+
+        .blog-content .code-highlight {
+            color: #fcd34d;
+            /* yellow-300 */
+        }
+
+        .blog-content ul {
+            list-style: disc;
+            padding-left: 20px;
+        }
+
+        .blog-content li {
+            list-style-type: none;
+            /* Remove default marker */
+            position: relative;
+            padding-left: 1.5rem;
+        }
+
+        .blog-content li::before {
+            content: "\2023";
+            /* Custom bullet point */
+            color: var(--primary-color);
+            font-weight: bold;
+            display: inline-block;
+            margin-right: 0.5rem;
+            text-shadow: 0 0 5px var(--primary-color);
+            position: absolute;
+            left: 0;
+            top: 4px;
+        }
+
+        .gif-container {
+            margin: 1.5rem auto;
+            max-width: 400px;
+            text-align: center;
+        }
+    </style>
+</head>
+
+<body class="antialiased">
+
+    <header class="sticky top-0 z-10 bg-gray-900/90 backdrop-blur-sm p-4 border-b border-green-500/30 shadow-lg">
+        <div class="max-w-7xl mx-auto flex justify-between items-center">
+            <h1 class="font-mono text-xl font-bold text-green-400">
+                <span class="text-white">&lt;</span>@EmptyMahbob<span class="text-white">/&gt;</span>
+            </h1>
+
+            <nav class="hidden md:block">
+                <a href="index.html#about"
+                    class="text-gray-300 hover:text-green-400 mx-3 transition duration-300">About</a>
+                <a href="index.html#skills"
+                    class="text-gray-300 hover:text-green-400 mx-3 transition duration-300">Skills</a>
+                <a href="index.html#experience"
+                    class="text-gray-300 hover:text-green-400 mx-3 transition duration-300">Experience</a>
+                <a href="index.html#hof" class="text-gray-300 hover:text-green-400 mx-3 transition duration-300">Hall of
+                    Fame</a>
+                <a href="index.html#certifications"
+                    class="text-gray-300 hover:text-green-400 mx-3 transition duration-300">Certifications</a>
+                <a href="index.html#community"
+                    class="text-gray-300 hover:text-green-400 mx-3 transition duration-300">Community</a>
+                <a href="index.html#awards"
+                    class="text-gray-300 hover:text-green-400 mx-3 transition duration-300">Awards</a>
+                <a href="index.html#blog" class="text-green-400 mx-3 transition duration-300 font-bold">Blog</a>
+            </nav>
+
+            <button id="mobile-menu-button"
+                class="md:hidden text-green-400 p-2 rounded-md hover:bg-gray-800 transition duration-300"
+                aria-label="Toggle navigation menu">
+                <i data-lucide="menu" class="w-6 h-6"></i>
+            </button>
+        </div>
+
+        <nav id="mobile-menu" class="hidden md:hidden mt-4 space-y-2 pb-2 border-t border-green-500/30 pt-4">
+            <a href="index.html#about"
+                class="block text-gray-300 hover:text-green-400 px-3 py-2 rounded-md transition duration-300">About</a>
+            <a href="index.html#skills"
+                class="block text-gray-300 hover:text-green-400 px-3 py-2 rounded-md transition duration-300">Skills</a>
+            <a href="index.html#experience"
+                class="block text-gray-300 hover:text-green-400 px-3 py-2 rounded-md transition duration-300">Experience</a>
+            <a href="index.html#hof"
+                class="block text-gray-300 hover:text-green-400 px-3 py-2 rounded-md transition duration-300">Hall of
+                Fame</a>
+            <a href="index.html#certifications"
+                class="block text-gray-300 hover:text-green-400 px-3 py-2 rounded-md transition duration-300">Certifications</a>
+            <a href="index.html#community"
+                class="block text-gray-300 hover:text-green-400 px-3 py-2 rounded-md transition duration-300">Community</a>
+            <a href="index.html#awards"
+                class="block text-gray-300 hover:text-green-400 px-3 py-2 rounded-md transition duration-300">Awards</a>
+            <a href="index.html#blog"
+                class="block text-green-400 hover:text-green-400 px-3 py-2 rounded-md transition duration-300 font-bold">Blog</a>
+        </nav>
+    </header>
+
+    <main class="flex-grow py-16 px-6">
+        <div class="max-w-4xl mx-auto cyber-card rounded-xl p-8 md:p-12 blog-content">
+
+            <a href="index.html#blog"
+                class="text-blue-400 hover:text-blue-200 transition duration-300 flex items-center mb-6">
+                <i data-lucide="arrow-left" class="w-4 h-4 mr-2"></i> Back to Blog List
+            </a>
+
+            <h1 class="text-4xl md:text-3xl font-extrabold text-white mb-4 leading-tight font-['IBM_Plex_Mono']">
+                CTF Writeup: KnightShop (460 Points) — The Hidden Parameter That Gave Me $1000+ Credit!
+            </h1>
+            <p class="text-sm text-gray-400 font-mono mb-8 border-b border-gray-700 pb-4">
+                Challenge: KnightShop (460 Points) | Type: CTF/Web/Logic Flaw | Author: TareqAhamed (0xt4req)
+            </p>
+
+            <p>
+                Assalamu Alaikum everyone! I recently solved a fun web/API CTF challenge called KnightShop from the
+                "CipherSprint Powered by Knight Squad" competition. The challenge description was short but tricky: "Buy
+                a product & I'll give you a flag."
+            </p>
+
+            <div class="gif-container">
+                <div class="tenor-gif-embed" data-postid="16513499608550187254" data-share-method="host" data-aspect-ratio="1.0375" data-width="100%"><a href="https://tenor.com/view/black-star-soul-eater-ninja-sword-anime-gif-16513499608550187254">Black Star Soul Eater GIF</a>from <a href="https://tenor.com/search/black+star-gifs">Black Star GIFs</a></div> <script type="text/javascript" async src="https://tenor.com/embed.js"></script>
+                <p class="text-xs text-gray-500 mt-2">Starting the challenge with full focus!</p>
+            </div>
+
+
+            <h2>The Problem: Not Enough Money/Credit</h2>
+
+            <p>
+                The KnightShop is an online store. After registering, every new account got only $100 store credit.
+                However, the shop only had four products, and every single one was priced higher than or equal to $200.
+                The cheapest product was $200.
+            </p>
+            <p>
+                Since you need to buy a product to get the flag, but your starting credit isn't enough, it means there
+                must be a way to manipulate either the product price or your starting credit.
+            </p>
+
+            <h2>Step 1: Checking JWT and Initial Attack Vectors</h2>
+
+            <p>I started by analyzing the authentication. The site was using a JWT token for authentication. I copied my
+                token and decoded it with the JWT editor in Burp Suite Pro. It looked like this:</p>
+            <pre>{"email":"test@empty.com","user_id":3025}</pre>
+
+            <p>I suspected a misconfiguration, so I tried common JWT attacks:</p>
+            <ul>
+                <li>Changing the `user_id` to 1 (hoping for admin access)</li>
+                <li>Changing the `email` to an admin email</li>
+                <li>Attempting to remove the signature part</li>
+            </ul>
+            <p>
+                <i data-lucide="x-circle" class="w-4 h-4 inline mr-2 text-red-500"></i> Result: None of the JWT attacks
+                worked. The token was implemented securely.
+            </p>
+
+            <h2>Step 2: Cart and Price Manipulation Attempts</h2>
+
+            <p>I moved on to testing the core business logic of a shopping site, specifically the "Add Item to Cart"
+                function.</p>
+
+            <h3>A. Quantity and Integer Overflow</h3>
+            <p>I tried adding a huge number of items, hoping to cause an integer overflow that would reset the price to
+                $0. I've seen similar logic flaws in this <a class="text-blue-300 space-y-2 text-base" href="https://portswigger.net/web-security/logic-flaws/examples/lab-logic-flaws-low-level" target="_blank">PortSwigger Academy lab</a>, but in this case, the large quantities
+                were handled correctly.</p>
+
+            <h3>B. Direct Price Manipulation</h3>
+            <p>I looked at the request for adding a product (Product ID 4, priced at $200.0) to the cart:</p>
+            <pre>GET /add-to-cart/4?price=200.0</pre>
+            <p>I manually tried to reduce the price parameter:</p>
+            <pre>GET /add-to-cart/4?price=<span class="code-highlight">100.0</span></pre>
+            <p>
+                <i data-lucide="x-circle" class="w-4 h-4 inline mr-2 text-red-500"></i> Result: This didn't work. The
+                server performed a backend validation, confirming the product's actual price.
+            </p>
+
+            <h3>C. Quantity Parameter Guessing</h3>
+            <p>Since there was no explicit quantity parameter, I tried adding custom parameters like `qty=` and `quantity=` so that I could manipulate the quantity value, such as using a negative or a floating-point number. I tested almost everything possible on a shopping site to get a product at a reduced price. Although I didn't try anything related to coupon codes because there was no indication of using any coupon codes in this shop. Still I couldn't get them to work either.</p>
+
+            <div class="gif-container">
+                <div class="tenor-gif-embed" data-postid="26078522" data-share-method="host" data-aspect-ratio="1.77778" data-width="100%"><a href="https://tenor.com/view/anime-boy-school-test-dumb-gif-26078522">Anime Boy GIF</a>from <a href="https://tenor.com/search/anime-gifs">Anime GIFs</a></div> <script type="text/javascript" async src="https://tenor.com/embed.js"></script>
+                <p class="text-xs text-gray-500 mt-2">Feeling stuck after my initial ideas failed.</p>
+            </div>
+
+            <h2>Step 3: The Lightbulb Moment — Parameter Guessing!</h2>
+
+            <p>I decided to stop messing with the cart and go back to the source of the problem: the $100 credit. I
+                realized I had only tried common parameter names like `credit=` or `balance=` when trying to manipulate
+                credit during checkout or registration.</p>
+
+            <p>My thought process was: *What if the developers used a less obvious, but still logical, variable name in
+                the backend for the initial credit during registration?*</p>
+
+            <p>I decided to use a smarter approach: asking an LLM (like ChatGPT) for suggestions on common variable
+                names for "shop credit" in a backend environment. I got a list including: `store_credit`,
+                `initial_credit`, `wallet_balance`, etc.</p>
+
+            <p>I immediately went back to the `/register` endpoint request and tried the first guess: `store_credit=`.
+            </p>
+
+            <pre>
+POST /register HTTP/1.1
+Host: 160.187.130.170:9052
+Content-Length: 65
+
+email=empty%40empty.com&password=Str0nGP@$$w0rD&<span class="code-highlight">store_credit=1000</span>
+            </pre>
+
+            <p>
+                <i data-lucide="check-circle" class="w-4 h-4 inline mr-2 text-green-500"></i> Success! This is a classic
+                Mass Assignment or Parameter Pollution vulnerability. The registration handler was unexpectedly
+                accepting the `store_credit` parameter from the user input and using it to set the new account's balance
+                in the database, overriding the default $100.
+            </p>
+
+            <div class="gif-container">
+                <div class="tenor-gif-embed" data-postid="23644474" data-share-method="host" data-aspect-ratio="1.78771" data-width="100%"><a href="https://tenor.com/view/smg4-success-mission-accomplished-successful-explosion-gif-23644474">Smg4 Success GIF</a>from <a href="https://tenor.com/search/smg4-gifs">Smg4 GIFs</a></div> <script type="text/javascript" async src="https://tenor.com/embed.js"></script>
+                <p class="text-xs text-gray-500 mt-2">The sweet feeling of a successful exploit!</p>
+            </div>
+
+            <h2>Final Step: Getting the Flag</h2>
+
+            <p>With my new, self-assigned $1000 credit, I could easily buy any product in the shop. I quickly navigated
+                to the product page, added the item to my cart, and proceeded to checkout. The purchase was successful,
+                and a "Congratulations!" message appeared with the flag.</p>
+
+            <h3 class="text-2xl font-bold text-red-400 mt-8">
+                The Flag: <span class="text-white font-mono">CS{Fl4g_HeR3}</span> <span class="text-black font-mono">The
+                    actual flag is secret, you have to try it yourself! 😉</span>
+            </h3>
+
+            <h2>Takeaway for Developers and Researchers</h2>
+            <p>This challenge is an excellent reminder for developers to be extremely careful with how input parameters
+                are handled, especially during sensitive operations like user registration or account creation. Always
+                use a strict whitelist approach for expected parameters, discarding any extra ones sent by the client.
+                For us researchers, remember: if the front door is locked, check the hidden back window (i.e., try
+                guessing those unusual but logical internal parameters!).</p>
+
+            <p class="text-center text-m text-gray-500 mt-10">
+                Thank you for reading this write-up! 
+            </p><p class="text-center text-m text-gray-500 mt-1">Regards, @emptymahbob</p>
+
+        </div>
+    </main>
+
+    <footer class="mt-12 p-6 text-center text-sm text-gray-500 border-t border-green-500/20">
+        <p class="font-mono">
+            &copy; <span id="currentYear"></span> Md Mahbob Alam | @emptymahbob | All rigths reserved.
+        </p>
+    </footer>
+
+    <script>
+        // Initialize Lucide Icons
+        lucide.createIcons();
+
+        // Dynamically set the current year in the footer
+        document.getElementById('currentYear').textContent = new Date().getFullYear();
+
+        // Mobile Menu Toggle Logic (Copied from index.html for consistency)
+        const mobileMenuButton = document.getElementById('mobile-menu-button');
+        const mobileMenu = document.getElementById('mobile-menu');
+
+        mobileMenuButton.addEventListener('click', () => {
+            mobileMenu.classList.toggle('hidden');
+        });
+    </script>
+</body>
+
+</html>
